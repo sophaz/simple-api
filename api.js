@@ -5,24 +5,21 @@ const app = express();
 
 app.use(bodyParser.json())
 
-var me = {name:  "Sophie", title: "Engineer"};
-var books = []
+var text = "Hello, World!"
 
-app.get('/', (req, res) => res.send('Hello World'));
+app.get('/', (req, res) => res.send(text));
 
-app.get('/me', (req, res) => res.send(me));
-app.post('/me', (req, res) => {
-  me = req.body;
-  res.send(me);
+app.get('/about', (req, res) => {
+  res.send({"about": "This is a very simple server. It has the ability to get and post some text."});
 });
 
-app.get('/books', (req, res) => {
-  res.send({"books": books});
+app.get('/text', (req, res) => {
+  res.send({"text": text});
 });
-app.post('/books', (req, res) => {
-  var book = req.body;
-  books.push(book);
-  res.send({"books": books});
+
+app.post('/text', (req, res) => {
+  text = req.body.text;
+  res.send({"text": text});
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
